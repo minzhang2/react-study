@@ -1,0 +1,2 @@
+// import './PureComponent';
+import './Component'
