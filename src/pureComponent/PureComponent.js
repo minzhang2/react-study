@@ -3,6 +3,7 @@
  * 在shouldComponentUpdate利用
  * shallowEqual对prop和state的浅比较
  * 进行性能优化
+ * https://www.jianshu.com/p/33cda0dc316a
  */
 
 import React, { PureComponent } from 'react';

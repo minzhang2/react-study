@@ -1,3 +1,10 @@
+/**
+ * react高级api
+ * react-redux与react-router均采用context
+ * 根组件暴露childContext，子孙节点均可取到context
+ * https://juejin.im/post/5a90e0545188257a63112977
+ * 
+ */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'

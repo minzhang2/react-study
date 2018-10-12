@@ -1,3 +1,9 @@
+/**
+ * 高阶函数
+ * 将组建作为函数的参数返回基于该组件渲染的一个全新组件
+ * https://zhuanlan.zhihu.com/p/24776678
+ * 
+ */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
