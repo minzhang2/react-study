@@ -18,8 +18,10 @@
  */
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
-import { createStore, bindActionCreators } from 'redux';
+import { createStore, bindActionCreators, applyMiddleware } from 'redux';
 import { Provider, connect } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import { select, put, call } from 'redux-saga/effects';
 
 class TodoApp extends Component {
   constructor(props) {
@@ -66,7 +68,24 @@ const reducer = (state = {}, action) => {
 	return action.payload ? { ...state, n: action.payload } : {...state};
 }
 
-const store = createStore(reducer, { n: 1 });
+const initialStore = { n: 1 };
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(reducer, initialStore, applyMiddleware(sagaMiddleware));
+
+function query() {
+    return new Promise(resolve => {
+        setTimeout(() => resolve(2), 1000)
+    });
+}
+
+function* rootSaga() {
+    const data = yield call(query);
+    console.log(data)
+}
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render((
 	<Provider store={ store }>
