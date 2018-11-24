@@ -1,31 +1,16 @@
-import React, { Component, PureComponent } from 'react'; 
+import React, { Component, PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 
-// let uuid = 0;
-
-// class App extends Component {
-//     constructor(props) {
-//       super(props)
-//       this.state = {
-//           name: 'jay'
-//         ]
-//       }
-//     }
-
-//     handle = () => {
-//       this.setState({
-//         name: `jay${uuid++}`
-//       })
-//     }
-    
-//     render() {
-//       return <div onClick={this.handle}>{name}</div>
-//     }
-//   }
+/**
+ * diff
+ * 1.不同组件则执行旧组件的卸载和新组件的挂载
+ * 2.keys变更react的逻辑
+ * 参考：https://zhuanlan.zhihu.com/p/20346379
+ */
 
 class User extends Component {
   static defaultProps = {
-    
+
   }
   static propTypes = {
 
@@ -35,7 +20,7 @@ class User extends Component {
   }
 }
 
-class App extends PureComponent {
+class App extends Component {
   static defaultProps = {
 
   }
@@ -45,59 +30,72 @@ class App extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'jay'
+      name: 'jay',
+      visible: false,
+      list: [1, 2, 3, 4]
     }
   }
 
+  componentWillMount() {
+    // setTimeout(() => {
+      // this.setState({
+      //   name: 'jay1',
+      // })
+    // }, 1000)
+  }
+
   componentDidMount() {
-    debugger
+    // setTimeout(() => {
+    //   this.setState({
+    //     name: 'jay1',
+    //   })
+    // }, 1000)
+  }
+
+  componentWillReceiveProps() {
+    setTimeout(() => {
+      this.setState({
+        name: 'jay2',
+      })
+    }, 1000)
+  }
+
+  componentDidUpdate() {
+    // debugger
+    // this.setState({
+    //     name: 'jay234',
+    //   })
   }
 
   handle = () => {
-    this.setState({
-      name: 'zm'
-    })
-    this.setState({
-      name: 'zm1'
-    })
     this.setState((prevState, prevProps) => ({
-      name: prevState.name + '2'
+      name: prevState.name + '2',
+      visible: true,
+      list: [1, 5, 4, 3]
     }), () => {
       console.log(1)
     })
   }
 
   render() {
+    const { name, visible, list } = this.state;
+    // return (
+    //   <div onClick={this.handle}>
+    //     {
+    //       visible
+    //       ? list.map(item => <span key={item}>{item}</span>)
+    //       : list.map(item => <span key={item}>{item}</span>)
+    //     }
+    //   </div>
+    // )
     return (
-      <div>
-        <User ref='ele' onClick={this.handle} name={this.state.name} />
-        <User ref='ele1' onClick={this.handle} name={this.state.name} />
-        {null}333333{'ssssssssssss'}{this.state.name}
+      <div onClick={this.handle} >
+        { visible ? <User ref='ele' name={name} /> : <div>{name}</div>}
+        {'ssssssssssss'}{name}
       </div>
     )
   }
 }
-  
+
 const component = ReactDOM.render(<App />, document.querySelector("#root"))
 ReactDOM.findDOMNode(component)
-
-// let left;
-// function time() {
-//   const end = new Date('2018/11-07 08:00:00');
-//   const now = Date.now();
-//   console.log(now)
-//   left = end - now;
-//   const d = Math.floor(left / (1000 * 60 * 60 * 24));
-//   const h = Math.floor((left / (1000 * 60 * 60) % 24));
-//   const m = Math.floor((left / (1000 * 60)) % 60);
-//   const s = Math.floor((left / 1000) % 60) ;
-//   console.log(`${d}-${h}-${m}-${s}`)
-  
-// }
-// const interval = setInterval(() => {
-//   if(left === 0) {
-//     clearInterval(interval);
-//   }
-//   time();
-// }, 1000);
-
