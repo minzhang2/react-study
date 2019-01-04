@@ -25,6 +25,12 @@ class User extends Component {
   }
 }
 
+class Item extends Component {
+  render() {
+    return <div>{this.props.value}</div>
+  }
+}
+
 class App extends Component {
   static defaultProps = {
 
@@ -36,20 +42,12 @@ class App extends Component {
     super(props);
     this.state = {
       name: 'jay',
-      visible: false,
+      visible: true,
       list: [1, 2, 3, 4]
     }
   }
 
   componentWillMount() {
-    // setTimeout(() => {
-      // this.setState({
-      //   name: 'jay1',
-      // })
-    // }, 1000)
-  }
-
-  componentDidMount() {
     // setTimeout(() => {
     //   this.setState({
     //     name: 'jay1',
@@ -57,26 +55,34 @@ class App extends Component {
     // }, 1000)
   }
 
+  componentDidMount() {
+    // setTimeout(() => {
+    //   this.setState({
+    //     name: 'jay1',
+    //   }, () => {debugger})
+    // }, 1000)
+  }
+
   componentWillReceiveProps() {
-    setTimeout(() => {
-      this.setState({
-        name: 'jay2',
-      })
-    }, 1000)
+    // setTimeout(() => {
+    //   this.setState({
+    //     name: 'jay2',
+    //   })
+    // }, 1000)
   }
 
   componentDidUpdate() {
     // debugger
     // this.setState({
-    //     name: 'jay234',
-    //   })
+    //   name: 'jay234',
+    // })
   }
 
   handle = () => {
     this.setState((prevState, prevProps) => ({
       name: prevState.name + '2',
       visible: true,
-      list: [1, 5, 4, 3]
+      list: [4, 5, 3, 2]
     }), () => {
       console.log(1)
     })
@@ -84,21 +90,21 @@ class App extends Component {
 
   render() {
     const { name, visible, list } = this.state;
-    // return (
-    //   <div onClick={this.handle}>
-    //     {
-    //       visible
-    //       ? list.map(item => <span key={item}>{item}</span>)
-    //       : list.map(item => <span key={item}>{item}</span>)
-    //     }
-    //   </div>
-    // )
     return (
-      <div onClick={this.handle} >
-        { visible ? <User ref='ele' name={name} /> : <div>{name}</div>}
-        {'ssssssssssss'}{name}
+      <div onClick={this.handle}>
+        {
+          // visible
+          list.map(value => <Item key={value} value={value}></Item>)
+          // : list.map(item => <span key={item}>{item}</span>)
+        }
       </div>
     )
+    // return (
+    //   <div ref="parent" onClick={this.handle} >
+    //     { visible ? <User ref='ele' name={name} /> : <div>{name}</div>}
+    //     {'ssssssssssss'}{name}
+    //   </div>
+    // )
   }
 }
 

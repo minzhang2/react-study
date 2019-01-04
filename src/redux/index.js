@@ -16,6 +16,7 @@
  * http://imweb.io/topic/5a1969b2a192c3b460fce226
  * https://zhuanlan.zhihu.com/p/39289157
  */
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 import { createStore, bindActionCreators, applyMiddleware } from 'redux';
@@ -30,7 +31,7 @@ class TodoApp extends Component {
     	a: 123
     }
   }
-  
+
   render() {
   	const { a } = this.state;
     const { add, n, value } = this.props;
